@@ -1,5 +1,5 @@
 {
-  description = "nix-darwin system flake";
+  description = "boring nix-darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -10,35 +10,42 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs }:
   let
     configuration = { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [ 
+	  pkgs.direnv
+	  pkgs.git
+	  pkgs.imagemagick
+	  pkgs.jq
 	  pkgs.vim
           pkgs.ripgrep
           pkgs.tmux
         ];
 
-      # Necessary for using flakes on this system.
+      programs.tmux.enable = true;
+      programs.tmux.enableSensible = true;
+      programs.tmux.enableVim = true;
+
+      programs.vim.enable = true;
+      programs.vim.vimConfig = ''
+          set clipboard=unnamedplus
+          set number
+          set relativenumber
+          set tabstop=4
+          set shiftwidth=4
+          set expandtab
+          set smartindent
+          set nowrap
+          set scrolloff=5
+        '';
+
       nix.settings.experimental-features = "nix-command flakes";
-
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
-
-      # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
       system.stateVersion = 6;
-
-      # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
     };
   in
   {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#Lees-MacBook-Air
+    # configuration will run based on default hostname if none is specified
     darwinConfigurations."Lees-MacBook-Air" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
