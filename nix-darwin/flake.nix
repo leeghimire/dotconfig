@@ -12,31 +12,42 @@
     configuration = { pkgs, ... }: {
       environment.systemPackages =
         [ 
-	  pkgs.direnv
-	  pkgs.git
-	  pkgs.imagemagick
-	  pkgs.jq
-	  pkgs.vim
+          pkgs.ffmpeg-full
+          pkgs.git
+          pkgs.imagemagick
+          pkgs.jq
           pkgs.ripgrep
           pkgs.tmux
+          pkgs.vim
         ];
 
-      programs.tmux.enable = true;
-      programs.tmux.enableSensible = true;
-      programs.tmux.enableVim = true;
+      programs.direnv.enable = true;
 
-      programs.vim.enable = true;
-      programs.vim.vimConfig = ''
-          set clipboard=unnamedplus
-          set number
-          set relativenumber
-          set tabstop=4
-          set shiftwidth=4
-          set expandtab
-          set smartindent
-          set nowrap
-          set scrolloff=5
-        '';
+      programs.zsh = {
+        enable = true;
+        enableCompletion = false;
+      };
+
+      programs.vim = { 
+        enable = true;
+        vimConfig =
+          ''
+            set number
+            set relativenumber
+            set tabstop=4
+            set shiftwidth=4
+            set expandtab
+            set smartindent
+            set nowrap
+            set scrolloff=5
+          '';
+      };
+
+      programs.tmux = {
+        enable  = true;
+        enableSensible = true;
+        enableVim = true;
+      };
 
       nix.settings.experimental-features = "nix-command flakes";
       system.configurationRevision = self.rev or self.dirtyRev or null;
