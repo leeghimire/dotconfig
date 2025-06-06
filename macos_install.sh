@@ -7,5 +7,3 @@ if [ ! -d /etc/nix-darwin ]; then
 fi
 
 nix run --extra-experimental-features 'nix-command flakes' nix-darwin/master#darwin-rebuild -- switch
-
-echo "start a new terminal and run: darwin-rebuild switch"
