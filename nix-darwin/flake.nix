@@ -8,53 +8,23 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs }:
   let
     configuration = { pkgs, ... }: {
-      environment.systemPackages =
-        [ 
-          pkgs.git
-          pkgs.jq
-          pkgs.llvm
-          pkgs.neovim
-          pkgs.pandoc
-          pkgs.pyright
-          pkgs.ripgrep
-          pkgs.tmux
-          (pkgs.runCommand "vim-shadow" { } ''
-            mkdir -p $out/bin
-            ln -s ${pkgs.neovim}/bin/nvim $out/bin/vim
-          '')
-        ];
-      programs.direnv.enable = true;
-      programs.tmux = {
-        enable  = true;
-        enableSensible = true;
-        enableVim = true;
+      environment = {
+        systemPackages = [ pkgs.git pkgs.jq pkgs.ripgrep ];
+        shellAliases = {
+          code = "windsurf";
+        };
       };
-      system.defaults = {
-        dock = {
-          autohide = true;
-          autohide-delay = 0.0;
-          autohide-time-modifier = 0.0;
-          orientation = "bottom";
-          show-recents = false;
+      programs = {
+        direnv.enable = true;
+        tmux = {
+          enable         = true;
+          enableSensible = true;
+          enableVim      = true;
         };
-        finder = {
-          AppleShowAllExtensions = true;
-          AppleShowAllFiles = true;
-        };
-        NSGlobalDomain = {
-          AppleFontSmoothing = 0;
-          AppleKeyboardUIMode = 3;
-          AppleScrollerPagingBehavior = true;
-          AppleShowAllExtensions = true;
-          AppleShowAllFiles = true;
-          InitialKeyRepeat = 10;
-          KeyRepeat = 2;
-          NSAutomaticSpellingCorrectionEnabled = false;
-          NSAutomaticWindowAnimationsEnabled = false;
-          NSWindowResizeTime = 0.0;
-          _HIHideMenuBar = false;
-          "com.apple.sound.beep.feedback" = 0;
-          "com.apple.trackpad.scaling" = 2.0;
+        vim = {
+          enable         = true;
+          enableSensible = true;
+          vimConfig = "set rnu";
         };
       };
       homebrew = {
@@ -68,13 +38,34 @@
          casks =
            [
              "anki"
-             "chatgpt"
              "little-snitch"
              "obsidian"
-             "utm"
              "windsurf"
+             "zotero"
            ];
       };
+      system = {
+        primaryUser = "leeghimire";
+        defaults = {
+          dock = {
+            autohide = true;
+            show-recents = false;
+          };
+          finder = {
+            AppleShowAllExtensions = true;
+            AppleShowAllFiles = true;
+            ShowPathbar = true;
+          };
+            AppleFontSmoothing = 0;
+            AppleInterfaceStyle = "Dark";
+            InitialKeyRepeat = 10;
+            KeyRepeat = 2;
+            _HIHideMenuBar = false;
+            "com.apple.sound.beep.feedback" = 0;
+          };
+        };
+      };
+      nix.optimise.automatic = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.configurationRevision = self.rev or self.dirtyRev or null;
       system.stateVersion = 6;
@@ -87,5 +78,4 @@
       modules = [ configuration ];
     };
   };
-
 }
