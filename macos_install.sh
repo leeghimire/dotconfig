@@ -7,7 +7,7 @@ if [ ! -d /etc/nix-darwin ]; then
 fi
 
 if [ ! -f /etc/nix-darwin/flake.nix ]; then
-  sudo cp nix-darwin/flake.nix /etc/nix-darwin/flake.nix
+  sudo ln nix-darwin/flake.nix /etc/nix-darwin/flake.nix
 fi
 
 nix run --extra-experimental-features 'nix-command flakes' \

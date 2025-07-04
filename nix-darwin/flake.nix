@@ -9,10 +9,22 @@
   let
     configuration = { pkgs, ... }: {
       environment = {
-        systemPackages = [ pkgs.git pkgs.jq pkgs.ripgrep ];
-        shellAliases = {
-          code = "windsurf";
-        };
+        systemPackages =
+          [
+            pkgs.git
+            pkgs.jq
+            pkgs.llvm
+            pkgs.neovim
+            pkgs.pyright
+            pkgs.ripgrep
+            pkgs.zig
+            pkgs.zls
+
+            (pkgs.runCommand "vim-shadow" { } ''
+              mkdir -p $out/bin
+              ln -s ${pkgs.neovim}/bin/nvim $out/bin/vim
+            '') 
+          ];
       };
       programs = {
         direnv.enable = true;
@@ -20,11 +32,6 @@
           enable         = true;
           enableSensible = true;
           enableVim      = true;
-        };
-        vim = {
-          enable         = true;
-          enableSensible = true;
-          vimConfig = "set rnu";
         };
       };
       homebrew = {
@@ -38,9 +45,10 @@
          casks =
            [
              "anki"
+             "claude"
              "little-snitch"
+             "netnewswire"
              "obsidian"
-             "windsurf"
              "zotero"
            ];
       };
@@ -56,6 +64,7 @@
             AppleShowAllFiles = true;
             ShowPathbar = true;
           };
+          NSGlobalDomain = {
             AppleFontSmoothing = 0;
             AppleInterfaceStyle = "Dark";
             InitialKeyRepeat = 10;
@@ -65,6 +74,7 @@
           };
         };
       };
+
       nix.optimise.automatic = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.configurationRevision = self.rev or self.dirtyRev or null;

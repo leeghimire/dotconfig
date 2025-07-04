@@ -1,5 +1,6 @@
-⚠️ YOU SHOULD **SERIOUSLY** NEVER USE THIS ⚠️ 
+⚠️ you probably should not use any of this...
 
 ```sh
-./install.sh
+# macos
+./macos_install.sh
 ```
