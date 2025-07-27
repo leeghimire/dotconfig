@@ -45,36 +45,12 @@
          casks =
            [
              "anki"
-             "claude"
              "little-snitch"
              "netnewswire"
              "obsidian"
              "zotero"
            ];
       };
-      system = {
-        primaryUser = "leeghimire";
-        defaults = {
-          dock = {
-            autohide = true;
-            show-recents = false;
-          };
-          finder = {
-            AppleShowAllExtensions = true;
-            AppleShowAllFiles = true;
-            ShowPathbar = true;
-          };
-          NSGlobalDomain = {
-            AppleFontSmoothing = 0;
-            AppleInterfaceStyle = "Dark";
-            InitialKeyRepeat = 10;
-            KeyRepeat = 2;
-            _HIHideMenuBar = false;
-            "com.apple.sound.beep.feedback" = 0;
-          };
-        };
-      };
-
       nix.optimise.automatic = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.configurationRevision = self.rev or self.dirtyRev or null;
