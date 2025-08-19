@@ -37,19 +37,51 @@
       homebrew = {
        enable = true;
        global = { autoUpdate = false; };
-         onActivation = {
-           cleanup = "zap";
-           autoUpdate = false;
-           upgrade = false;
-         };
-         casks =
-           [
-             "anki"
-             "little-snitch"
-             "netnewswire"
-             "obsidian"
-             "zotero"
-           ];
+       onActivation = {
+         cleanup = "zap";
+         autoUpdate = false;
+         upgrade = false;
+       };
+       masApps = {
+         "Things 3" = 904280696;
+         "uBlock Origin Lite" = 6745342698;
+       };
+       casks =
+         [
+           "anki"
+           "little-snitch"
+           "netnewswire"
+           "zotero"
+         ];
+       };
+      system = {
+        primaryUser = "lee";
+        defaults = {
+          dock = {
+            autohide = true;
+            autohide-delay = 0.0;
+            autohide-time-modifier = 0.0;
+            orientation = "bottom";
+            show-recents = false;
+          };
+          finder = {
+            AppleShowAllExtensions = true;
+            AppleShowAllFiles = true;
+            ShowPathbar = true;
+          };
+          NSGlobalDomain = {
+            AppleFontSmoothing = 0;
+            AppleKeyboardUIMode = 3;
+            AppleScrollerPagingBehavior = true;
+            InitialKeyRepeat = 10;
+            KeyRepeat = 2;
+            NSAutomaticSpellingCorrectionEnabled = false;
+            NSAutomaticWindowAnimationsEnabled = false;
+            NSWindowResizeTime = 0.0;
+            _HIHideMenuBar = false;
+            "com.apple.sound.beep.feedback" = 0;
+            "com.apple.trackpad.scaling" = 2.0;};
+        };
       };
       nix.optimise.automatic = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
