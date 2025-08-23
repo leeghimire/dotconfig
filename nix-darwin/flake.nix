@@ -11,11 +11,13 @@
       environment = {
         systemPackages =
           [
+            pkgs.boost
             pkgs.git
             pkgs.jq
             pkgs.llvm
             pkgs.neovim
             pkgs.pyright
+            pkgs.python3
             pkgs.ripgrep
             pkgs.zig
             pkgs.zls
@@ -29,9 +31,9 @@
       programs = {
         direnv.enable = true;
         tmux = {
-          enable         = true;
+          enable = true;
           enableSensible = true;
-          enableVim      = true;
+          enableVim = true;
         };
       };
       homebrew = {
@@ -40,10 +42,11 @@
        onActivation = {
          cleanup = "zap";
          autoUpdate = false;
-         upgrade = false;
+         upgrade = true;
        };
        masApps = {
          "Things 3" = 904280696;
+         "Xcode" = 497799835;
          "uBlock Origin Lite" = 6745342698;
        };
        casks =
@@ -51,7 +54,6 @@
            "anki"
            "little-snitch"
            "netnewswire"
-           "zotero"
          ];
        };
       system = {
