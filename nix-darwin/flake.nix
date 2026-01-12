@@ -21,7 +21,6 @@
             pkgs.ripgrep
             pkgs.zig
             pkgs.zls
-
             (pkgs.runCommand "vim-shadow" { } ''
               mkdir -p $out/bin
               ln -s ${pkgs.neovim}/bin/nvim $out/bin/vim
@@ -42,7 +41,7 @@
        onActivation = {
          cleanup = "zap";
          autoUpdate = false;
-         upgrade = true;
+         upgrade = false;
        };
        masApps = {
          "Things 3" = 904280696;
