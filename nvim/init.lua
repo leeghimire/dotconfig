@@ -23,15 +23,27 @@ require('lazy').setup({
     dependencies={'nvim-lua/plenary.nvim','hrsh7th/nvim-cmp'},
     config=function()
       require('codeium').setup({
-        virtual_text={enabled=true,idle_delay=75},
+        virtual_text={enabled=true,idle_delay=75,accept_fallback = "<Tab>",},
       })
     end,
   },
 })
 
-for _,s in ipairs({'clangd','pyright','zls'}) do
-  require('lspconfig')[s].setup({})
-end
+vim.lsp.config('clangd', {
+  cmd = {
+    'clangd',
+    '--clang-tidy',
+    '--background-index',
+    '--query-driver=/nix/store/*/bin/*'
+  },
+})
+vim.lsp.enable('clangd')
+
+vim.lsp.config('pyright', {})
+vim.lsp.enable('pyright')
+
+vim.lsp.config('zls', {})
+vim.lsp.enable('zls')
 
 local cmp=require('cmp')
 cmp.setup({

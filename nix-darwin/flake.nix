@@ -11,6 +11,7 @@
       environment = {
         systemPackages =
           [
+            pkgs.R
             pkgs.boost
             pkgs.git
             pkgs.jq
