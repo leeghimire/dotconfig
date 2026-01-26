@@ -12,6 +12,7 @@
         systemPackages =
           [
             pkgs.boost
+            pkgs.claude-code
             pkgs.git
             pkgs.jq
             pkgs.llvm
@@ -92,6 +93,7 @@
             "com.apple.trackpad.scaling" = 2.0;};
         };
       };
+      nixpkgs.config.allowUnfree = true;
       nix.optimise.automatic = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.configurationRevision = self.rev or self.dirtyRev or null;
