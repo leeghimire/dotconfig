@@ -11,24 +11,12 @@
       environment = {
         systemPackages =
           [
-            pkgs.boost
             pkgs.git
             pkgs.jq
-            pkgs.llvm
             pkgs.neovim
             pkgs.pyright
             pkgs.python3
             pkgs.ripgrep
-            pkgs.zig
-            pkgs.zls
-            (pkgs.rWrapper.override {
-              packages = with pkgs.rPackages; [
-                dplyr
-                ggplot2
-                languageserver
-                xts
-              ];
-            })
             (pkgs.runCommand "vim-shadow" { } ''
               mkdir -p $out/bin
               ln -s ${pkgs.neovim}/bin/nvim $out/bin/vim
@@ -48,17 +36,20 @@
        global = { autoUpdate = false; };
        onActivation = {
          cleanup = "zap";
-         autoUpdate = false;
-         upgrade = false;
+         autoUpdate = true;
+         upgrade = true;
        };
        masApps = {
          "Things 3" = 904280696;
+         "Vimari" = 1480933944;
          "Xcode" = 497799835;
          "uBlock Origin Lite" = 6745342698;
        };
+       brews = [ "cask" ];
        casks =
          [
            "anki"
+           "claude-code"
            "little-snitch"
            "netnewswire"
          ];
