@@ -1,13 +1,13 @@
 local opt = vim.opt
-opt.clipboard='unnamedplus'
-opt.expandtab=true
 opt.number=true
 opt.relativenumber=true
 opt.scrolloff=5
 opt.shiftwidth=4
+opt.expandtab=true
 opt.smartindent=true
 opt.tabstop=4
 opt.wrap=false
+opt.clipboard='unnamedplus'
 
 local path=vim.fn.stdpath('data')..'/lazy/lazy.nvim'
 if not vim.loop.fs_stat(path) then
@@ -23,7 +23,6 @@ require('lazy').setup({
 
 vim.lsp.enable('clangd')
 vim.lsp.enable('pyright')
-vim.lsp.enable('zls')
 
 local cmp=require('cmp')
 cmp.setup({

@@ -23,13 +23,10 @@
             '') 
           ];
       };
-      programs = {
-        direnv.enable = true;
-        tmux = {
-          enable = true;
-          enableSensible = true;
-          enableVim = true;
-        };
+      programs.tmux = {
+        enable = true;
+        enableSensible = true;
+        enableVim = true;
       };
       homebrew = {
        enable = true;
@@ -45,13 +42,13 @@
          "Xcode" = 497799835;
          "uBlock Origin Lite" = 6745342698;
        };
-       brews = [ "cask" ];
        casks =
          [
            "anki"
            "claude-code"
            "little-snitch"
            "netnewswire"
+           "proxyman"
          ];
        };
       system = {
@@ -60,29 +57,27 @@
           dock = {
             autohide = true;
             autohide-delay = 0.0;
-            autohide-time-modifier = 0.0;
-            orientation = "bottom";
             show-recents = false;
+            tilesize = 64;
           };
           finder = {
             AppleShowAllExtensions = true;
             AppleShowAllFiles = true;
+            FXDefaultSearchScope = "SCcf";
+            FXPreferredViewStyle = "Nlsv";
             ShowPathbar = true;
+            ShowStatusBar = true;
           };
           NSGlobalDomain = {
-            AppleFontSmoothing = 0;
-            AppleKeyboardUIMode = 3;
-            AppleScrollerPagingBehavior = true;
+            AppleShowAllExtensions = true;
             InitialKeyRepeat = 10;
-            KeyRepeat = 2;
-            NSAutomaticSpellingCorrectionEnabled = false;
-            NSAutomaticWindowAnimationsEnabled = false;
-            NSWindowResizeTime = 0.0;
-            _HIHideMenuBar = false;
+            KeyRepeat = 1;
             "com.apple.sound.beep.feedback" = 0;
-            "com.apple.trackpad.scaling" = 2.0;};
+          };
         };
       };
+      security.pam.services.sudo_local.touchIdAuth = true;
+
       nix.optimise.automatic = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.configurationRevision = self.rev or self.dirtyRev or null;
