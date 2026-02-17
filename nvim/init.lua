@@ -9,6 +9,13 @@ opt.tabstop=4
 opt.wrap=false
 opt.clipboard='unnamedplus'
 
+opt.background = 'light'
+
+vim.cmd([[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NonText guibg=NONE ctermbg=NONE
+]])
+
 local path=vim.fn.stdpath('data')..'/lazy/lazy.nvim'
 if not vim.loop.fs_stat(path) then
   vim.fn.system({'git','clone','--filter=blob:none','https://github.com/folke/lazy.nvim.git',path})
@@ -23,6 +30,7 @@ require('lazy').setup({
 
 vim.lsp.enable('clangd')
 vim.lsp.enable('pyright')
+vim.lsp.enable('vtsls')
 
 local cmp=require('cmp')
 cmp.setup({
@@ -38,9 +46,9 @@ vim.diagnostic.config({virtual_text = true})
 
 vim.g.mapleader=' '
 
-vim.keymap.set('n','gd',vim.lsp.buf.definition,{})
-vim.keymap.set('n','gi',vim.lsp.buf.implementation,{})
-vim.keymap.set('n','gr',vim.lsp.buf.references,{})
+vim.keymap.set('n','<Leader>gd',vim.lsp.buf.definition,{})
+vim.keymap.set('n','<Leader>gi',vim.lsp.buf.implementation,{})
+vim.keymap.set('n','<Leader>gr',vim.lsp.buf.references,{})
 
 local tb=require('telescope.builtin')
 vim.keymap.set('n','<Leader>ff',tb.git_files,{})

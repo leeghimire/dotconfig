@@ -17,6 +17,8 @@
             pkgs.pyright
             pkgs.python3
             pkgs.ripgrep
+            pkgs.telegram-desktop
+            pkgs.vtsls
             (pkgs.runCommand "vim-shadow" { } ''
               mkdir -p $out/bin
               ln -s ${pkgs.neovim}/bin/nvim $out/bin/vim
@@ -46,9 +48,12 @@
          [
            "anki"
            "claude-code"
+           "codex"
            "little-snitch"
            "netnewswire"
            "proxyman"
+           "signal"
+           "zotero"
          ];
        };
       system = {
@@ -58,7 +63,7 @@
             autohide = true;
             autohide-delay = 0.0;
             show-recents = false;
-            tilesize = 64;
+            tilesize = 32;
           };
           finder = {
             AppleShowAllExtensions = true;
